@@ -10,7 +10,7 @@ By Abhilash Inumella and Anubhav Tiwari · April 2026
 
 ## What this is
 
-A four-part policy package proposing that India create a tradable, fractional, on-chain claim on a unit of thorium-derived electricity. The instrument — Digital Thorium — is denominated in **kilowatt-hour-years (kWhy)**, issued by a federal vehicle sitting between the Department of Atomic Energy and SEBI, and designed to let ordinary Indians own the upside of the country's thorium build-out.
+A five-part policy package proposing that India create a tradable, fractional, on-chain claim on a unit of thorium-derived electricity. The instrument — Digital Thorium — is denominated in **kilowatt-hour-years (kWhy)**, issued by a federal vehicle sitting between the Department of Atomic Energy and SEBI, and designed to let ordinary Indians own the upside of the country's thorium build-out.
 
 The thesis rests on three convergences:
 
@@ -20,14 +20,15 @@ The thesis rests on three convergences:
 
 ## The documents
 
-Read in any order — each is self-contained. If you only read one, read the term sheet.
+Each is self-contained. If you've never heard of any of this, start with the citizen's note. If you're an analyst or journalist, start with the term sheet.
 
-| # | File | What it is | Pages |
-| --- | --- | --- | --- |
-| 0 | **[`digital_thorium_term_sheet.pdf`](./digital_thorium_term_sheet.pdf)** | **One-page summary.** Instrument definition, issuance & pricing, economics, deduction stack, variants, tax treatment, liquidity, lockups, risk framework, downside scenarios, audit & governance, programme sizing. The print-it-out cheat sheet. | 1 |
-| 1 | [`digital_thorium.pdf`](./digital_thorium.pdf) | **The argument.** Main policy report. Protocol stack, economic analysis, national and security interest, stakeholder analysis, risks, twenty-year simulation, policy architecture. | 24 |
-| 2 | [`digital_thorium_money_flow.pdf`](./digital_thorium_money_flow.pdf) | **How the rupees move.** Diligence memorandum tracing every rupee end-to-end: primary issuance, steady-state quarterly distribution, secondary trading, capital recycling flywheel, three independent audit chains. | ~11 |
-| 3 | [`digital_thorium_comparison.pdf`](./digital_thorium_comparison.pdf) | **Where it fits in a portfolio.** Feature-by-feature comparison against 14 instruments: G-secs, FDs, SGBs, real estate, REITs, InvITs, power utility equity, Nifty 50, Wheaton-style streamers, Yellow Cake plc, carbon credits, BTC, and more. | ~20 |
+| # | File | What it is | Audience | Pages |
+| --- | --- | --- | --- | --- |
+| 0 | **[`digital_thorium_citizens_note.pdf`](./digital_thorium_citizens_note.pdf)** | **Owning India's Electrons.** A short, personal essay framing why a salaried Indian today should care about Digital Thorium — written for a saver in Patna or Pune, not a policymaker. | General reader | 2 |
+| 1 | **[`digital_thorium_term_sheet.pdf`](./digital_thorium_term_sheet.pdf)** | **One-page summary.** Instrument definition, issuance & pricing, economics, deduction stack, variants, tax treatment, liquidity, lockups, risk framework, downside scenarios, audit & governance, programme sizing. The print-it-out cheat sheet. | Analyst / journalist | 1 |
+| 2 | [`digital_thorium.pdf`](./digital_thorium.pdf) | **The argument.** Main policy report. Protocol stack, economic analysis, national and security interest, stakeholder analysis, risks, twenty-year simulation, policy architecture. | Policymaker | 24 |
+| 3 | [`digital_thorium_money_flow.pdf`](./digital_thorium_money_flow.pdf) | **How the rupees move.** Diligence memorandum tracing every rupee end-to-end: primary issuance, steady-state quarterly distribution, secondary trading, capital recycling flywheel, three independent audit chains. | Diligence reader | ~11 |
+| 4 | [`digital_thorium_comparison.pdf`](./digital_thorium_comparison.pdf) | **Where it fits in a portfolio.** Feature-by-feature comparison against 14 instruments: G-secs, FDs, SGBs, real estate, REITs, InvITs, power utility equity, Nifty 50, Wheaton-style streamers, Yellow Cake plc, carbon credits, BTC, and more. | Portfolio allocator | ~20 |
 
 ## The instrument in one paragraph
 
