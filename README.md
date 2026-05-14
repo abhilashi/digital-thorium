@@ -6,7 +6,7 @@
 
 By Abhilash Inumella and Anubhav Tiwari · April 2026
 
-**▶ Live simulator + mock dashboard: [abhilashi.github.io/digital-thorium](https://abhilashi.github.io/digital-thorium/)**
+Accompanying site: [abhilashi.github.io/digital-thorium](https://abhilashi.github.io/digital-thorium/)
 
 ---
 

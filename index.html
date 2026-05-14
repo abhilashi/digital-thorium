@@ -3,500 +3,230 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Thorium · Owning India's Electrons</title>
-<meta name="description" content="A market architecture for India's thorium century. Simulate what owning a slice of clean baseload electricity could mean for an Indian saver.">
-<meta property="og:title" content="Digital Thorium · Owning India's Electrons">
-<meta property="og:description" content="A tradable, fractional claim on a kilowatt-hour-year of thorium-derived electricity. See what it could mean for your retirement.">
+<title>Digital Thorium</title>
+<meta name="description" content="A market architecture for India's thorium century. Accompanying site for the policy package.">
+<meta property="og:title" content="Digital Thorium">
+<meta property="og:description" content="A tradable, fractional, on-chain claim on a unit of thorium-derived electricity.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   :root {
-    --maroon: #7C2230;
-    --maroon-dark: #5A1822;
-    --maroon-light: #A8404F;
-    --cream: #FAF6F0;
-    --cream-dark: #F0E9DC;
-    --ink: #2A1F1F;
-    --ink-soft: #5A4F4F;
-    --gold: #B8860B;
-    --gold-soft: #D4A946;
-    --green: #4A7C3A;
-    --red: #B04545;
-    --border: #D4C9B8;
+    --bg: #F3EFE7;
+    --surface: #FBF8F1;
+    --ink: #15263D;
+    --ink-soft: #515866;
+    --ink-faint: #8B8F9B;
+    --rule: #D8D1C0;
+    --rule-soft: #E8E2D2;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--cream);
+    font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+    font-weight: 400;
+    background: var(--bg);
     color: var(--ink);
-    line-height: 1.6;
-    font-size: 16px;
+    line-height: 1.65;
+    font-size: 17px;
+    font-feature-settings: "kern", "liga", "onum";
+    -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-weight: 600;
-    line-height: 1.2;
-    color: var(--ink);
-  }
-  h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); letter-spacing: -0.02em; }
-  h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); letter-spacing: -0.01em; }
-  h3 { font-size: clamp(1.3rem, 2.5vw, 1.6rem); }
-  h4 { font-size: 1.05rem; font-weight: 600; font-family: 'Inter', sans-serif; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-soft); }
-  a { color: var(--maroon); text-decoration: none; border-bottom: 1px solid currentColor; }
-  a:hover { color: var(--maroon-dark); }
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-  .container-narrow { max-width: 740px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-weight: 600; line-height: 1.2; letter-spacing: -0.005em; }
+  h1 { font-size: clamp(2.2rem, 4.6vw, 3.1rem); font-weight: 700; }
+  h2 { font-size: clamp(1.5rem, 2.8vw, 1.9rem); }
+  h3 { font-size: 1.15rem; font-weight: 600; }
+  a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--ink-faint); }
+  a:hover { text-decoration-color: var(--ink); }
+  .container { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+  .num { font-feature-settings: "tnum" 1, "lnum" 1; }
 
   /* HEADER */
   header.site {
-    background: var(--maroon);
-    color: var(--cream);
-    padding: 14px 0;
-    border-bottom: 3px solid var(--gold);
+    border-bottom: 1px solid var(--rule);
+    padding: 22px 0;
   }
-  header.site .container { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
-  header.site .brand { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.01em; }
-  header.site nav a { color: var(--cream); border: none; margin-left: 24px; font-size: 0.95rem; opacity: 0.85; }
-  header.site nav a:hover { opacity: 1; border-bottom: 1px solid var(--cream); }
+  header.site .container { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; }
+  header.site .brand { font-weight: 700; font-size: 1.15rem; letter-spacing: 0.01em; }
+  header.site nav { font-size: 0.95rem; }
+  header.site nav a { margin-left: 22px; text-decoration: none; color: var(--ink-soft); }
+  header.site nav a:hover { color: var(--ink); }
 
   /* HERO */
-  .hero {
-    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-dark) 100%);
-    padding: 80px 0 60px;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--maroon), var(--gold), var(--maroon));
-  }
-  .hero .eyebrow {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--maroon);
-    margin-bottom: 16px;
-    font-weight: 600;
-  }
-  .hero h1 { margin-bottom: 18px; }
-  .hero .lede {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.2rem, 2.2vw, 1.5rem);
-    line-height: 1.55;
-    color: var(--ink-soft);
-    max-width: 680px;
-    font-style: italic;
-  }
-  .hero .body-text {
-    margin-top: 28px;
-    max-width: 680px;
-    color: var(--ink-soft);
-  }
-  .hero .body-text p + p { margin-top: 14px; }
-  .cta-row { margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; }
-  .cta {
-    display: inline-block;
-    padding: 12px 22px;
-    border-radius: 4px;
-    font-weight: 500;
-    font-size: 0.95rem;
-    border: 1px solid var(--maroon);
-    transition: all 0.15s ease;
-  }
-  .cta.primary { background: var(--maroon); color: var(--cream); }
-  .cta.primary:hover { background: var(--maroon-dark); }
-  .cta.secondary { background: transparent; color: var(--maroon); }
-  .cta.secondary:hover { background: var(--maroon); color: var(--cream); }
+  section.hero { padding: 90px 0 70px; border-bottom: 1px solid var(--rule); }
+  section.hero .meta { font-size: 0.88rem; color: var(--ink-soft); letter-spacing: 0.02em; margin-bottom: 26px; }
+  section.hero h1 { margin-bottom: 14px; }
+  section.hero .subtitle { font-size: clamp(1.15rem, 2vw, 1.35rem); color: var(--ink-soft); font-weight: 400; margin-bottom: 36px; line-height: 1.4; }
+  section.hero .abstract { font-size: 1.02rem; line-height: 1.7; max-width: 640px; }
+  section.hero .abstract p + p { margin-top: 14px; }
 
   /* SECTIONS */
-  section.block {
-    padding: 80px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  section.block .section-eyebrow {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--maroon);
-    margin-bottom: 12px;
+  section.block { padding: 70px 0; border-bottom: 1px solid var(--rule); }
+  section.block .label {
+    font-size: 0.78rem;
     font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
   }
   section.block h2 { margin-bottom: 18px; }
-  section.block .section-intro {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem;
-    color: var(--ink-soft);
-    max-width: 680px;
-    margin-bottom: 50px;
-    font-style: italic;
-    line-height: 1.5;
-  }
+  section.block .intro { color: var(--ink-soft); margin-bottom: 44px; max-width: 640px; }
 
   /* SIMULATOR */
-  .sim-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 48px;
-    align-items: start;
-  }
-  @media (max-width: 880px) {
-    .sim-grid { grid-template-columns: 1fr; gap: 36px; }
-  }
   .controls {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 28px;
-    position: sticky;
-    top: 20px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 24px 26px;
+    margin-bottom: 36px;
   }
-  .control-group { margin-bottom: 22px; }
-  .control-group:last-child { margin-bottom: 0; }
+  .control-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 28px;
+  }
+  @media (max-width: 600px) { .control-grid { grid-template-columns: 1fr; gap: 18px; } }
   .control-group label {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.85rem;
     color: var(--ink-soft);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
   }
-  .control-group .value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--maroon);
-  }
+  .control-group .value { font-weight: 600; color: var(--ink); font-size: 1.05rem; }
   input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
-    height: 4px;
-    background: var(--cream-dark);
-    border-radius: 2px;
+    height: 2px;
+    background: var(--rule);
     outline: none;
   }
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    background: var(--maroon);
+    width: 14px; height: 14px;
+    background: var(--ink);
     border-radius: 50%;
     cursor: pointer;
-    border: 3px solid var(--cream);
-    box-shadow: 0 0 0 1px var(--maroon);
   }
   input[type="range"]::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: var(--maroon);
+    width: 14px; height: 14px;
+    background: var(--ink);
     border-radius: 50%;
     cursor: pointer;
-    border: 3px solid var(--cream);
-    box-shadow: 0 0 0 1px var(--maroon);
+    border: none;
   }
-  .scenario-buttons { display: flex; gap: 8px; }
+  .scenario-buttons { grid-column: 1 / -1; display: flex; gap: 0; border: 1px solid var(--rule); }
   .scenario-buttons button {
     flex: 1;
-    padding: 10px;
-    background: var(--cream);
-    border: 1px solid var(--border);
-    border-radius: 4px;
+    padding: 10px 14px;
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--rule);
     cursor: pointer;
     font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 500;
+    font-size: 0.9rem;
     color: var(--ink-soft);
-    transition: all 0.15s ease;
+    transition: background 0.12s ease, color 0.12s ease;
   }
-  .scenario-buttons button:hover { border-color: var(--maroon-light); }
-  .scenario-buttons button.active {
-    background: var(--maroon);
-    color: var(--cream);
-    border-color: var(--maroon);
-  }
+  .scenario-buttons button:last-child { border-right: none; }
+  .scenario-buttons button:hover { color: var(--ink); }
+  .scenario-buttons button.active { background: var(--ink); color: var(--surface); }
 
   /* OUTPUT */
-  .headline-numbers {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-  @media (max-width: 540px) {
-    .headline-numbers { grid-template-columns: 1fr; }
-  }
-  .stat-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--maroon);
-    border-radius: 4px;
-    padding: 20px 22px;
-  }
-  .stat-card.hero-stat {
-    grid-column: 1 / -1;
-    border-left-color: var(--gold);
-    background: linear-gradient(180deg, white 0%, var(--cream) 100%);
-  }
-  .stat-label {
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--ink-soft);
-    margin-bottom: 6px;
-  }
-  .stat-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
-    font-weight: 600;
-    color: var(--maroon);
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-  }
-  .stat-card.hero-stat .stat-value { font-size: clamp(2.4rem, 5vw, 3.2rem); }
-  .stat-sublabel {
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-    margin-top: 4px;
-  }
-  .chart-wrap {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 24px;
-    margin-bottom: 24px;
-  }
-  .chart-wrap h4 { margin-bottom: 16px; color: var(--ink); text-transform: none; letter-spacing: normal; font-size: 1rem; }
+  .outputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 26px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 36px; }
+  @media (max-width: 600px) { .outputs { grid-template-columns: 1fr; gap: 18px; } .outputs .stat { padding: 14px 0; border-top: 1px solid var(--rule-soft); } .outputs .stat:first-child { border-top: none; padding-top: 0; } }
+  .stat .stat-label { font-size: 0.78rem; color: var(--ink-soft); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+  .stat .stat-value { font-size: clamp(1.7rem, 3.5vw, 2.1rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; }
+  .stat .stat-sub { font-size: 0.82rem; color: var(--ink-soft); margin-top: 4px; }
+
+  .chart-wrap { margin-bottom: 28px; }
+  .chart-title { font-size: 0.82rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; }
   .chart-canvas-wrap { position: relative; height: 280px; }
 
-  /* COMPARISON */
-  .comparison-table {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 24px;
-  }
-  .comparison-table h4 { margin-bottom: 18px; color: var(--ink); text-transform: none; letter-spacing: normal; font-size: 1rem; }
-  .comp-row {
-    display: grid;
-    grid-template-columns: 130px 1fr 110px;
-    gap: 14px;
-    align-items: center;
-    margin-bottom: 12px;
-    font-size: 0.9rem;
-  }
-  .comp-row .name { font-weight: 500; }
-  .comp-row .name .rate { color: var(--ink-soft); font-weight: 400; font-size: 0.8rem; margin-left: 4px; }
-  .comp-bar-track {
-    background: var(--cream-dark);
-    height: 22px;
-    border-radius: 3px;
-    overflow: hidden;
-    position: relative;
-  }
-  .comp-bar {
-    height: 100%;
-    background: var(--ink-soft);
-    border-radius: 3px;
-    transition: width 0.5s ease;
-  }
-  .comp-row.thorium .comp-bar { background: var(--maroon); }
-  .comp-row.thorium .name { color: var(--maroon); font-weight: 600; }
-  .comp-amount {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    text-align: right;
-    font-size: 1.05rem;
-  }
+  /* COMPARISON TABLE */
+  table.comparison { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  table.comparison th { text-align: left; padding: 10px 0; font-weight: 600; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid var(--rule); }
+  table.comparison th.r, table.comparison td.r { text-align: right; }
+  table.comparison td { padding: 14px 0; border-bottom: 1px solid var(--rule-soft); }
+  table.comparison tr:last-child td { border-bottom: none; }
+  table.comparison .instrument { color: var(--ink); }
+  table.comparison .rate { color: var(--ink-soft); font-size: 0.85rem; margin-left: 6px; }
+  table.comparison tr.primary .instrument { font-weight: 600; }
+  table.comparison td.fv { font-weight: 600; font-feature-settings: "tnum" 1, "lnum" 1; }
+  .bar-cell { width: 35%; padding-right: 18px !important; }
+  .bar-track { background: var(--rule-soft); height: 6px; }
+  .bar-fill { height: 100%; background: var(--ink-soft); }
+  tr.primary .bar-fill { background: var(--ink); }
 
-  /* DASHBOARD MOCK */
-  .mock-frame {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(124, 34, 48, 0.08);
-  }
-  .mock-chrome {
-    background: var(--ink);
-    padding: 12px 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .mock-chrome .dot { width: 11px; height: 11px; border-radius: 50%; background: #555; }
-  .mock-chrome .dot.r { background: #E0625F; }
-  .mock-chrome .dot.y { background: #E0C04D; }
-  .mock-chrome .dot.g { background: #65BE5B; }
-  .mock-chrome .url {
-    flex: 1;
-    background: #1a1414;
-    color: #aaa;
-    padding: 5px 14px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-family: monospace;
-    margin-left: 12px;
-  }
-  .mock-body { padding: 32px; }
-  .mock-nav {
-    display: flex;
-    gap: 28px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 18px;
-    margin-bottom: 28px;
-    font-size: 0.9rem;
-    color: var(--ink-soft);
-  }
-  .mock-nav .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--maroon); font-weight: 600; }
-  .mock-nav .nav-link { padding-bottom: 18px; margin-bottom: -19px; }
-  .mock-nav .nav-link.active { color: var(--maroon); border-bottom: 2px solid var(--maroon); font-weight: 500; }
-  .mock-nav .spacer { flex: 1; }
-  .mock-nav .user {
-    background: var(--cream);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-  }
-  .mock-portfolio-header { margin-bottom: 24px; }
-  .mock-portfolio-header .label {
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 6px;
-  }
-  .mock-portfolio-header .total {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.6rem;
-    font-weight: 600;
-    color: var(--ink);
-    line-height: 1;
-  }
-  .mock-portfolio-header .change {
-    color: var(--green);
-    font-size: 0.95rem;
-    margin-top: 8px;
-    font-weight: 500;
-  }
-  .mock-stats-row {
+  /* DASHBOARD MOCK — restrained */
+  .holder-card { background: var(--surface); border: 1px solid var(--rule); padding: 32px; }
+  .holder-card .h-top {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 28px;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    align-items: end;
   }
-  @media (max-width: 720px) {
-    .mock-stats-row { grid-template-columns: repeat(2, 1fr); }
-  }
-  .mock-stat {
-    background: var(--cream);
-    padding: 16px 18px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-  }
-  .mock-stat .l { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin-bottom: 4px; }
-  .mock-stat .v { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--ink); }
-  .mock-stat .sub { font-size: 0.78rem; color: var(--ink-soft); margin-top: 2px; }
-  .mock-chart-wrap { background: var(--cream); padding: 20px; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 24px; }
-  .mock-chart-wrap .ch-header { display: flex; justify-content: space-between; margin-bottom: 14px; align-items: center; }
-  .mock-chart-wrap .ch-header h5 { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
-  .mock-chart-wrap .ch-header .tabs { display: flex; gap: 6px; }
-  .mock-chart-wrap .ch-header .tabs span {
-    font-size: 0.75rem;
-    padding: 4px 10px;
-    background: white;
-    border-radius: 3px;
-    color: var(--ink-soft);
-    border: 1px solid var(--border);
-  }
-  .mock-chart-wrap .ch-header .tabs span.act { background: var(--maroon); color: var(--cream); border-color: var(--maroon); }
-  .mock-chart-canvas { height: 180px; position: relative; }
-  .cohort-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-  .cohort-table th { text-align: left; padding: 10px 12px; background: var(--cream); color: var(--ink-soft); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; border-bottom: 1px solid var(--border); }
-  .cohort-table td { padding: 12px; border-bottom: 1px solid var(--border); }
-  .cohort-table tr:last-child td { border-bottom: none; }
-  .cohort-table .badge { background: var(--green); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; }
-  .cohort-table .badge.pending { background: var(--gold-soft); color: var(--ink); }
-  .next-dist {
-    background: linear-gradient(135deg, var(--maroon) 0%, var(--maroon-dark) 100%);
-    color: var(--cream);
-    padding: 18px 22px;
-    border-radius: 6px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 22px;
-  }
-  .next-dist .l { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.85; margin-bottom: 4px; }
-  .next-dist .a { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; }
-  .next-dist .countdown { text-align: right; opacity: 0.9; font-size: 0.85rem; }
+  .holder-card .h-total .l { font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .holder-card .h-total .v { font-size: clamp(2rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
+  .holder-card .h-total .s { font-size: 0.85rem; color: var(--ink-soft); margin-top: 6px; }
+  .holder-card .h-id { font-size: 0.82rem; color: var(--ink-soft); text-align: right; }
+  .holder-card .h-id .acct { font-feature-settings: "tnum" 1; }
 
-  /* DOCS */
-  .docs-grid {
+  .holder-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin-bottom: 28px; }
+  @media (max-width: 680px) { .holder-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+  .holder-stats .item .l { font-size: 0.72rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .holder-stats .item .v { font-size: 1.25rem; font-weight: 600; font-feature-settings: "tnum" 1, "lnum" 1; }
+  .holder-stats .item .s { font-size: 0.78rem; color: var(--ink-soft); margin-top: 2px; }
+
+  .holder-chart-wrap { border-top: 1px solid var(--rule); padding-top: 24px; margin-bottom: 28px; }
+  .holder-chart-wrap .ch-label { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+  .holder-chart-canvas { height: 170px; position: relative; }
+
+  table.cohort { width: 100%; border-collapse: collapse; font-size: 0.92rem; border-top: 1px solid var(--rule); }
+  table.cohort th { text-align: left; padding: 12px 12px 12px 0; font-size: 0.72rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; border-bottom: 1px solid var(--rule); }
+  table.cohort th.r, table.cohort td.r { text-align: right; padding-right: 0; }
+  table.cohort td { padding: 14px 12px 14px 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  table.cohort tr:last-child td { border-bottom: none; }
+  table.cohort .name { font-weight: 600; }
+  table.cohort .detail { font-size: 0.8rem; color: var(--ink-soft); margin-top: 2px; }
+  table.cohort .status { font-size: 0.78rem; color: var(--ink-soft); letter-spacing: 0.04em; }
+  table.cohort .status.pending { font-style: italic; }
+
+  .next-line { display: flex; justify-content: space-between; padding-top: 24px; margin-top: 4px; border-top: 1px solid var(--rule); align-items: baseline; }
+  .next-line .l { font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.1em; }
+  .next-line .v { font-size: 1.1rem; font-weight: 600; font-feature-settings: "tnum" 1; }
+  .next-line .d { font-size: 0.85rem; color: var(--ink-soft); }
+
+  /* DOCUMENTS */
+  .doc-list { border-top: 1px solid var(--rule); }
+  .doc-list a {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: 36px 1fr auto;
     gap: 18px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    align-items: baseline;
+    color: var(--ink);
   }
-  .doc-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 22px;
-    transition: all 0.15s ease;
-    display: block;
-    border-bottom: 1px solid var(--border);
-  }
-  .doc-card:hover { border-color: var(--maroon-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(124, 34, 48, 0.06); }
-  .doc-card .num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.95rem;
-    color: var(--maroon);
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-  .doc-card h4 { font-family: 'Cormorant Garamond', serif; text-transform: none; letter-spacing: normal; font-size: 1.25rem; color: var(--ink); margin-bottom: 8px; font-weight: 600; }
-  .doc-card p { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 10px; }
-  .doc-card .meta { font-size: 0.78rem; color: var(--ink-soft); display: flex; gap: 14px; }
+  .doc-list a:hover .doc-title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  .doc-list .doc-num { font-size: 0.85rem; color: var(--ink-soft); font-feature-settings: "lnum" 1; }
+  .doc-list .doc-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
+  .doc-list .doc-desc { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.55; }
+  .doc-list .doc-meta { font-size: 0.78rem; color: var(--ink-faint); text-align: right; letter-spacing: 0.02em; }
 
   /* FOOTER */
-  footer.site {
-    background: var(--ink);
-    color: var(--cream);
-    padding: 50px 0 30px;
-  }
-  footer.site .container { max-width: 900px; }
-  footer.site h4 { color: var(--cream); margin-bottom: 14px; }
-  footer.site p { color: rgba(250, 246, 240, 0.7); font-size: 0.88rem; margin-bottom: 10px; line-height: 1.6; }
-  footer.site .meta {
-    margin-top: 32px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(250, 246, 240, 0.15);
-    color: rgba(250, 246, 240, 0.5);
-    font-size: 0.82rem;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 14px;
-  }
-  footer.site a { color: var(--gold-soft); border-color: var(--gold-soft); }
-
-  .pill {
-    display: inline-block;
-    background: var(--cream-dark);
-    color: var(--ink-soft);
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    margin-left: 8px;
-  }
+  footer.site { padding: 60px 0 40px; }
+  footer.site .notes h3 { margin-bottom: 14px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+  footer.site .notes p { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 12px; max-width: 640px; }
+  footer.site .colophon { margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; font-size: 0.85rem; color: var(--ink-faint); }
 </style>
 </head>
 <body>
@@ -506,191 +236,192 @@
     <div class="brand">Digital Thorium</div>
     <nav>
       <a href="#simulator">Simulator</a>
-      <a href="#dashboard">Dashboard</a>
+      <a href="#holder">Holder</a>
       <a href="#documents">Documents</a>
-      <a href="https://github.com/abhilashi/digital-thorium">GitHub</a>
+      <a href="https://github.com/abhilashi/digital-thorium">Repository</a>
     </nav>
   </div>
 </header>
 
 <section class="hero">
-  <div class="container-narrow">
-    <div class="eyebrow">April 2026 · A zero to frontier policy report</div>
-    <h1>Owning India's Electrons</h1>
-    <p class="lede">India holds a quarter of the world's thorium. The world's appetite for electricity is about to triple. This is a proposal for how ordinary Indians could own a slice of the convergence.</p>
-    <div class="body-text">
-      <p>My grandfather kept his savings in gold. My father kept his savings in property. I do not yet know what to do with mine. There is a third answer becoming available, and it sits on two facts: India holds ~846,000 tonnes of thorium, and global data-centre electricity demand is projected to rise from 415 TWh in 2024 to ~2,000 TWh by 2035.</p>
-      <p>What is proposed is a way to own a slice of that. The instrument is called Digital Thorium. One token = one kilowatt-hour-year of claim on a federally-supervised reactor cohort. Minimum ticket: ₹500. Distributions land in your bank account every 90 days.</p>
-    </div>
-    <div class="cta-row">
-      <a href="#simulator" class="cta primary">Run the simulator</a>
-      <a href="./digital_thorium_citizens_note.pdf" class="cta secondary">Read the citizen's note</a>
+  <div class="container">
+    <div class="meta num">A zero to frontier policy report  ·  April 2026  ·  Inumella & Tiwari</div>
+    <h1>Digital Thorium</h1>
+    <div class="subtitle">A market architecture for India's thorium century.</div>
+    <div class="abstract">
+      <p>A proposal to create a tradable, fractional, on-chain claim on a unit of thorium-derived electricity produced by a federally supervised reactor fleet. The unit of account is one kilowatt-hour-year. Issuance is federal, through a new authority sitting between the Department of Atomic Energy and the Securities and Exchange Board of India.</p>
+      <p>This site accompanies a five-document policy package. It contains an interactive model parameterised on the central case from the report, an illustrative view of the holder interface, and links to the underlying documents.</p>
     </div>
   </div>
 </section>
 
-<section class="block" id="simulator" style="background: white;">
+<section class="block" id="simulator">
   <div class="container">
-    <div class="section-eyebrow">The Simulator</div>
-    <h2>What it could mean for you</h2>
-    <p class="section-intro">Drag the sliders. Numbers update live. Defaults reflect the central case in the policy proposal — 14.5% nominal target IRR, 5% distribution yield at launch, 60-year asset life. Not a promise, not a prospectus.</p>
+    <div class="label">I · Simulator</div>
+    <h2>Capital formation, household level</h2>
+    <p class="intro">Inputs drive a systematic investment plan into Digital Thorium tokens, compounded at the scenario-specific nominal rate. Outputs report the corpus and steady-state monthly distribution at the chosen horizon. The base case reflects the 14.5 percent nominal IRR and 5 percent launch distribution yield stated in the term sheet.</p>
 
-    <div class="sim-grid">
-      <div class="controls">
+    <div class="controls">
+      <div class="control-grid">
         <div class="control-group">
-          <label>Monthly SIP <span class="value">₹<span id="sipValue">25,000</span></span></label>
+          <label>Monthly contribution <span class="value num">₹<span id="sipValue">25,000</span></span></label>
           <input type="range" id="sipSlider" min="500" max="200000" step="500" value="25000">
         </div>
         <div class="control-group">
-          <label>Your age now <span class="value"><span id="ageValue">30</span></span></label>
+          <label>Current age <span class="value num"><span id="ageValue">30</span></span></label>
           <input type="range" id="ageSlider" min="22" max="55" step="1" value="30">
         </div>
         <div class="control-group">
-          <label>Retirement age <span class="value"><span id="retireValue">60</span></span></label>
+          <label>Holding period ends at age <span class="value num"><span id="retireValue">60</span></span></label>
           <input type="range" id="retireSlider" min="40" max="75" step="1" value="60">
         </div>
         <div class="control-group">
-          <label>Scenario</label>
+          <label>Scenario <span class="value" id="scenarioValue">Central case</span></label>
           <div class="scenario-buttons">
-            <button data-scenario="bear">Bear</button>
-            <button data-scenario="base" class="active">Base</button>
-            <button data-scenario="bull">Bull</button>
+            <button data-scenario="bear">Adverse</button>
+            <button data-scenario="base" class="active">Central</button>
+            <button data-scenario="bull">Lift-off</button>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="output">
-        <div class="headline-numbers">
-          <div class="stat-card hero-stat">
-            <div class="stat-label">Monthly Distribution at Retirement</div>
-            <div class="stat-value" id="monthlyDist">₹6,52,000</div>
-            <div class="stat-sublabel" id="monthlyDistSub">Cash hitting your bank account every month, nominal rupees</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Corpus at Retirement</div>
-            <div class="stat-value" id="corpusFinal">₹15.6 cr</div>
-            <div class="stat-sublabel" id="corpusYears">over 30 years</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Total Contributed</div>
-            <div class="stat-value" id="totalContrib">₹90 lakh</div>
-            <div class="stat-sublabel" id="multipleSub">17.4× your contributions</div>
-          </div>
-        </div>
-
-        <div class="chart-wrap">
-          <h4>Corpus growth — nominal rupees</h4>
-          <div class="chart-canvas-wrap"><canvas id="growthChart"></canvas></div>
-        </div>
-
-        <div class="comparison-table">
-          <h4>The same SIP into other instruments</h4>
-          <div id="comparisonRows"></div>
-        </div>
+    <div class="outputs">
+      <div class="stat">
+        <div class="stat-label">Monthly distribution at horizon</div>
+        <div class="stat-value num" id="monthlyDist">₹6,42,000</div>
+        <div class="stat-sub num" id="monthlyDistSub">Quarterly cash, expressed monthly</div>
       </div>
+      <div class="stat">
+        <div class="stat-label">Corpus at horizon</div>
+        <div class="stat-value num" id="corpusFinal">₹15.4 cr</div>
+        <div class="stat-sub num" id="corpusSub">Over 30 years</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Multiple on contributions</div>
+        <div class="stat-value num" id="multiple">17.1×</div>
+        <div class="stat-sub num" id="multipleSub">₹90 lakh contributed</div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Corpus path, nominal rupees</div>
+      <div class="chart-canvas-wrap"><canvas id="growthChart"></canvas></div>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Same contribution into alternative instruments</div>
+      <table class="comparison num">
+        <thead>
+          <tr>
+            <th>Instrument</th>
+            <th class="bar-cell"></th>
+            <th class="r">Terminal value</th>
+          </tr>
+        </thead>
+        <tbody id="comparisonRows"></tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<section class="block" id="dashboard">
+<section class="block" id="holder">
   <div class="container">
-    <div class="section-eyebrow">The Mock App</div>
-    <h2>What the holder app could look like</h2>
-    <p class="section-intro">A glimpse of the experience: quarterly distributions, cohort transparency, live secondary-market price, redemption windows. Imagined as a SEBI-regulated mobile app.</p>
+    <div class="label">II · Holder Interface</div>
+    <h2>Illustrative account view</h2>
+    <p class="intro">A sketch of what a Digital Thorium account would present to a holder: aggregate position, kilowatt-hour-years owned across reactor cohorts, the most recent quarterly distribution, and the next scheduled payment. The interface is regulated under the token layer, with KYC at the broker tier.</p>
 
-    <div class="mock-frame">
-      <div class="mock-chrome">
-        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-        <div class="url">app.digitalthorium.in / portfolio</div>
+    <div class="holder-card">
+      <div class="h-top">
+        <div class="h-total">
+          <div class="l">Aggregate holdings</div>
+          <div class="v num">₹14,82,400</div>
+          <div class="s num">₹2,18,400 cumulative gain · entry June 2026</div>
+        </div>
+        <div class="h-id">
+          <div>Holder account</div>
+          <div class="acct">DT-4172839</div>
+        </div>
       </div>
-      <div class="mock-body">
-        <div class="mock-nav">
-          <div class="logo">Digital Thorium</div>
-          <div class="nav-link active">Portfolio</div>
-          <div class="nav-link">Cohorts</div>
-          <div class="nav-link">Market</div>
-          <div class="nav-link">Statements</div>
-          <div class="spacer"></div>
-          <div class="user">Priya · DT-4172839</div>
+
+      <div class="holder-stats">
+        <div class="item">
+          <div class="l">kWhy owned</div>
+          <div class="v">64,452</div>
+          <div class="s">across three cohorts</div>
         </div>
-
-        <div class="mock-portfolio-header">
-          <div class="label">Total Holdings</div>
-          <div class="total">₹14,82,400</div>
-          <div class="change">▲ ₹4,200 (0.28%) today · ₹2,18,400 (17.3%) since first buy</div>
+        <div class="item">
+          <div class="l">Last distribution</div>
+          <div class="v">₹18,432</div>
+          <div class="s">paid 01 April 2026</div>
         </div>
-
-        <div class="mock-stats-row">
-          <div class="mock-stat">
-            <div class="l">kWhy Owned</div>
-            <div class="v">64,452</div>
-            <div class="sub">across 3 cohorts</div>
-          </div>
-          <div class="mock-stat">
-            <div class="l">Last Quarter</div>
-            <div class="v">₹18,432</div>
-            <div class="sub">paid 01 Apr 2026</div>
-          </div>
-          <div class="mock-stat">
-            <div class="l">FY26 Distributions</div>
-            <div class="v">₹71,840</div>
-            <div class="sub">below TDS threshold</div>
-          </div>
-          <div class="mock-stat">
-            <div class="l">Live Price</div>
-            <div class="v">₹23.00</div>
-            <div class="sub">VWAP IEX+PXIL · ▲ 0.4%</div>
-          </div>
+        <div class="item">
+          <div class="l">FY26 cumulative</div>
+          <div class="v">₹71,840</div>
+          <div class="s">below TDS threshold</div>
         </div>
-
-        <div class="mock-chart-wrap">
-          <div class="ch-header">
-            <h5>NAV per kWhy · last 12 months</h5>
-            <div class="tabs"><span>1M</span><span>3M</span><span>6M</span><span class="act">1Y</span><span>5Y</span><span>ALL</span></div>
-          </div>
-          <div class="mock-chart-canvas"><canvas id="navChart"></canvas></div>
+        <div class="item">
+          <div class="l">Secondary price</div>
+          <div class="v">₹23.00</div>
+          <div class="s">VWAP, IEX and PXIL</div>
         </div>
+      </div>
 
-        <table class="cohort-table">
-          <thead>
-            <tr>
-              <th>Reactor cohort</th>
-              <th>kWhy held</th>
-              <th>Next distribution</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Kalpakkam PFBR-1</strong><br><span style="font-size:0.78rem;color:var(--ink-soft);">500 MW · commissioned Apr 2026</span></td>
-              <td>28,140</td>
-              <td>01 Jul 2026<br><span style="font-size:0.78rem;color:var(--ink-soft);">est. ₹8,150</span></td>
-              <td><span class="badge">Live</span></td>
-            </tr>
-            <tr>
-              <td><strong>Tarapur THTR-2</strong><br><span style="font-size:0.78rem;color:var(--ink-soft);">700 MW · commissioned Sep 2026</span></td>
-              <td>22,860</td>
-              <td>01 Jul 2026<br><span style="font-size:0.78rem;color:var(--ink-soft);">est. ₹6,420</span></td>
-              <td><span class="badge">Live</span></td>
-            </tr>
-            <tr>
-              <td><strong>Kakrapar TX-1</strong><br><span style="font-size:0.78rem;color:var(--ink-soft);">900 MW · expected Dec 2027</span></td>
-              <td>13,452</td>
-              <td>—<br><span style="font-size:0.78rem;color:var(--ink-soft);">construction warrant</span></td>
-              <td><span class="badge pending">Pre-comm</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="holder-chart-wrap">
+        <div class="ch-label">
+          <span>Net asset value per kWhy</span>
+          <span class="num">Jun 2025 – May 2026</span>
+        </div>
+        <div class="holder-chart-canvas"><canvas id="navChart"></canvas></div>
+      </div>
 
-        <div class="next-dist">
-          <div>
-            <div class="l">Next distribution</div>
-            <div class="a">≈ ₹14,570 expected</div>
-          </div>
-          <div class="countdown">
-            01 Jul 2026<br>
-            <strong>48 days</strong>
-          </div>
+      <table class="cohort num">
+        <thead>
+          <tr>
+            <th>Cohort</th>
+            <th class="r">kWhy</th>
+            <th class="r">Next distribution</th>
+            <th class="r">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="name">Kalpakkam PFBR-1</div>
+              <div class="detail">500 MW · commissioned April 2026</div>
+            </td>
+            <td class="r">28,140</td>
+            <td class="r">01 Jul 2026<div class="detail">est. ₹8,150</div></td>
+            <td class="r"><span class="status">Operating</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="name">Tarapur THTR-2</div>
+              <div class="detail">700 MW · commissioned September 2026</div>
+            </td>
+            <td class="r">22,860</td>
+            <td class="r">01 Jul 2026<div class="detail">est. ₹6,420</div></td>
+            <td class="r"><span class="status">Operating</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="name">Kakrapar TX-1</div>
+              <div class="detail">900 MW · expected December 2027</div>
+            </td>
+            <td class="r">13,452</td>
+            <td class="r">—<div class="detail">construction warrant</div></td>
+            <td class="r"><span class="status pending">Pre-commissioning</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="next-line">
+        <div>
+          <div class="l">Next scheduled distribution</div>
+        </div>
+        <div>
+          <div class="v num">≈ ₹14,570</div>
+          <div class="d">01 July 2026</div>
         </div>
       </div>
     </div>
@@ -699,40 +430,50 @@
 
 <section class="block" id="documents">
   <div class="container">
-    <div class="section-eyebrow">The Reading List</div>
-    <h2>The full proposal</h2>
-    <p class="section-intro">Five documents, written for five audiences. Each is self-contained.</p>
+    <div class="label">III · Documents</div>
+    <h2>The policy package</h2>
+    <p class="intro">Five documents, each self-contained. Read in any order.</p>
 
-    <div class="docs-grid">
-      <a href="./digital_thorium_citizens_note.pdf" class="doc-card">
-        <div class="num">0 · Citizen's Note</div>
-        <h4>Owning India's Electrons</h4>
-        <p>A short, personal essay framing why a salaried Indian today should care.</p>
-        <div class="meta"><span>2 pages</span><span>General reader</span></div>
+    <div class="doc-list">
+      <a href="./digital_thorium_citizens_note.pdf">
+        <div class="doc-num">0</div>
+        <div>
+          <div class="doc-title">Owning India's Electrons</div>
+          <div class="doc-desc">A short essay framing why a salaried Indian today might care about the proposal.</div>
+        </div>
+        <div class="doc-meta">2 pp</div>
       </a>
-      <a href="./digital_thorium_term_sheet.pdf" class="doc-card">
-        <div class="num">1 · Term Sheet</div>
-        <h4>Instrument summary</h4>
-        <p>One page covering instrument, issuance, economics, risk, governance, and programme sizing.</p>
-        <div class="meta"><span>1 page</span><span>Analyst / journalist</span></div>
+      <a href="./digital_thorium_term_sheet.pdf">
+        <div class="doc-num">1</div>
+        <div>
+          <div class="doc-title">Term Sheet</div>
+          <div class="doc-desc">Instrument definition, issuance, pricing, deduction stack, risk framework, governance, and programme sizing.</div>
+        </div>
+        <div class="doc-meta">1 p</div>
       </a>
-      <a href="./digital_thorium.pdf" class="doc-card">
-        <div class="num">2 · Policy Report</div>
-        <h4>The argument</h4>
-        <p>The main report: three convergences, protocol stack, economic analysis, national interest, security interest, twenty-year simulation.</p>
-        <div class="meta"><span>24 pages</span><span>Policymaker</span></div>
+      <a href="./digital_thorium.pdf">
+        <div class="doc-num">2</div>
+        <div>
+          <div class="doc-title">Policy Report</div>
+          <div class="doc-desc">The principal document. Three convergences, protocol stack, economic analysis, national and security interest, twenty-year simulation, policy architecture.</div>
+        </div>
+        <div class="doc-meta">24 pp</div>
       </a>
-      <a href="./digital_thorium_money_flow.pdf" class="doc-card">
-        <div class="num">3 · Money Flow</div>
-        <h4>How the rupees move</h4>
-        <p>End-to-end diligence: primary issuance, quarterly distribution, secondary trading, capital recycling, three audit chains.</p>
-        <div class="meta"><span>~11 pages</span><span>Diligence reader</span></div>
+      <a href="./digital_thorium_money_flow.pdf">
+        <div class="doc-num">3</div>
+        <div>
+          <div class="doc-title">Money Flow Architecture</div>
+          <div class="doc-desc">End-to-end diligence memorandum: primary issuance, steady-state quarterly distribution, secondary trading, capital recycling, three audit chains.</div>
+        </div>
+        <div class="doc-meta">11 pp</div>
       </a>
-      <a href="./digital_thorium_comparison.pdf" class="doc-card">
-        <div class="num">4 · Comparison</div>
-        <h4>vs. the Rest of Finance</h4>
-        <p>Feature-by-feature comparison against G-secs, FDs, SGBs, REITs, InvITs, equity, Wheaton, Yellow Cake, BTC, more.</p>
-        <div class="meta"><span>~20 pages</span><span>Portfolio allocator</span></div>
+      <a href="./digital_thorium_comparison.pdf">
+        <div class="doc-num">4</div>
+        <div>
+          <div class="doc-title">Versus the Rest of Finance</div>
+          <div class="doc-desc">Feature-by-feature comparison against fourteen instruments: government debt, retail safe assets, real-asset claims, equity, structured commodity claims.</div>
+        </div>
+        <div class="doc-meta">20 pp</div>
       </a>
     </div>
   </div>
@@ -740,28 +481,29 @@
 
 <footer class="site">
   <div class="container">
-    <h4>Caveats</h4>
-    <p><strong>This is not investment advice.</strong> Digital Thorium is a policy proposal. The instrument has not launched. The proposal would require Parliament, with implementing regulations from SEBI and the RBI. Final terms will be set in cohort-specific prospectuses at issuance.</p>
-    <p>Numbers shown in the simulator and dashboard mockup are <strong>illustrative</strong>, derived from the central case in the policy report (target nominal IRR 14.5%, distribution yield 5% at launch, 1.5% real escalation). Comparison rates for FDs, Nifty 50, and gold reflect long-run nominal averages and are not guarantees. Real outcomes depend on reactor commissioning on schedule, AI demand projections holding, and the political durability of the statutory framework. Each of these can disappoint.</p>
-    <p>In the worst plausible scenario, the holder still earns roughly bank fixed deposit returns on a productive real asset. The floor is not zero, but the central case is not a promise either.</p>
-    <div class="meta">
-      <div>© 2026 Abhilash Inumella · Anubhav Tiwari · <a href="https://github.com/abhilashi/digital-thorium">github.com/abhilashi/digital-thorium</a></div>
-      <div>A zero to frontier policy report · April 2026</div>
+    <div class="notes">
+      <h3>Notes</h3>
+      <p>Digital Thorium is a policy proposal. The instrument has not been issued, and any issuance would require Parliament, with implementing regulations from the Securities and Exchange Board of India and the Reserve Bank of India. Final terms would be set in cohort-specific prospectuses.</p>
+      <p>Figures shown in the simulator and the holder view are illustrative, drawn from the central case in the policy report and term sheet. Comparison rates for fixed deposits, the Nifty 50, and gold are long-run nominal averages rather than guarantees. Outcomes depend on reactor commissioning, the trajectory of compute-driven electricity demand, and the durability of the statutory framework. Each can disappoint.</p>
+      <p>Nothing on this site constitutes investment advice or an offer of securities.</p>
+    </div>
+    <div class="colophon">
+      <div>Inumella and Tiwari, 2026</div>
+      <div><a href="https://github.com/abhilashi/digital-thorium">github.com/abhilashi/digital-thorium</a></div>
     </div>
   </div>
 </footer>
 
 <script>
 const SCENARIOS = {
-  bear:  { name: 'Bear',  thoriumNominal: 0.08,  yieldAtRetire: 0.04, label: 'Reactor delays, weak AI demand' },
-  base:  { name: 'Base',  thoriumNominal: 0.145, yieldAtRetire: 0.05, label: 'Central case from policy report' },
-  bull:  { name: 'Bull',  thoriumNominal: 0.185, yieldAtRetire: 0.06, label: 'AI lift-off, on-schedule build-out' }
+  bear: { name: 'Adverse',      thoriumNominal: 0.095, yieldAtRetire: 0.045, label: 'AI demand undershoots, build-out slips' },
+  base: { name: 'Central case', thoriumNominal: 0.145, yieldAtRetire: 0.050, label: 'Term-sheet base case' },
+  bull: { name: 'Lift-off',     thoriumNominal: 0.170, yieldAtRetire: 0.060, label: 'Compute demand exceeds projection' }
 };
-const BENCHMARKS = {
-  thorium: { label: 'Digital Thorium', class: 'thorium' },
-  nifty:   { rate: 0.12,  label: 'Nifty 50 (long-run avg)' },
-  gold:    { rate: 0.085, label: 'Gold (long-run avg)' },
-  fd:      { rate: 0.065, label: 'Bank fixed deposit' }
+const BENCH = {
+  nifty: { rate: 0.12,  label: 'Nifty 50' },
+  gold:  { rate: 0.085, label: 'Gold' },
+  fd:    { rate: 0.065, label: 'Bank fixed deposit' }
 };
 
 let state = { sip: 25000, age: 30, retire: 60, scenario: 'base' };
@@ -776,26 +518,28 @@ function fvSIP(monthly, annualRate, years) {
 
 function corpusSeries(monthly, annualRate, years) {
   const r = annualRate / 12;
-  const points = [];
+  const points = [0];
   let balance = 0;
-  for (let y = 0; y <= years; y++) {
-    if (y === 0) { points.push({ year: 0, balance: 0 }); continue; }
-    for (let m = 0; m < 12; m++) {
-      balance = balance * (1 + r) + monthly;
-    }
-    points.push({ year: y, balance });
+  for (let y = 1; y <= years; y++) {
+    for (let m = 0; m < 12; m++) balance = balance * (1 + r) + monthly;
+    points.push(balance);
   }
   return points;
 }
 
 function fmtINR(amount) {
-  if (amount >= 1e7) return '₹' + (amount / 1e7).toFixed(amount >= 1e8 ? 0 : 2).replace(/\.?0+$/, '') + ' cr';
-  if (amount >= 1e5) return '₹' + (amount / 1e5).toFixed(amount >= 1e6 ? 0 : 1).replace(/\.?0+$/, '') + ' lakh';
-  if (amount >= 1000) return '₹' + Math.round(amount).toLocaleString('en-IN');
+  if (amount >= 1e7) {
+    const v = amount / 1e7;
+    return '₹' + (v >= 100 ? v.toFixed(0) : v.toFixed(v >= 10 ? 1 : 2).replace(/\.?0+$/, '')) + ' cr';
+  }
+  if (amount >= 1e5) {
+    const v = amount / 1e5;
+    return '₹' + (v >= 10 ? v.toFixed(1).replace(/\.?0+$/, '') : v.toFixed(2).replace(/\.?0+$/, '')) + ' lakh';
+  }
   return '₹' + Math.round(amount).toLocaleString('en-IN');
 }
 
-function fmtINRPrecise(amount) {
+function fmtINRExact(amount) {
   return '₹' + Math.round(amount).toLocaleString('en-IN');
 }
 
@@ -806,74 +550,77 @@ function update() {
   document.getElementById('sipValue').textContent = state.sip.toLocaleString('en-IN');
   document.getElementById('ageValue').textContent = state.age;
   document.getElementById('retireValue').textContent = state.retire;
-  document.getElementById('corpusYears').textContent = `over ${years} years · ${scen.label}`;
+  document.getElementById('scenarioValue').textContent = scen.name;
+  document.getElementById('corpusSub').textContent = `Over ${years} years`;
 
   const thoriumFV = fvSIP(state.sip, scen.thoriumNominal, years);
   const totalContrib = state.sip * 12 * years;
   const monthlyDist = thoriumFV * scen.yieldAtRetire / 12;
   const multiple = thoriumFV / totalContrib;
 
-  document.getElementById('monthlyDist').textContent = fmtINRPrecise(monthlyDist);
-  document.getElementById('monthlyDistSub').textContent = `At ${(scen.yieldAtRetire*100).toFixed(0)}% distribution yield on a ${fmtINR(thoriumFV)} corpus`;
+  document.getElementById('monthlyDist').textContent = fmtINRExact(monthlyDist);
+  document.getElementById('monthlyDistSub').textContent = `at ${(scen.yieldAtRetire*100).toFixed(1).replace(/\.0$/,'')} percent yield on ${fmtINR(thoriumFV)}`;
   document.getElementById('corpusFinal').textContent = fmtINR(thoriumFV);
-  document.getElementById('totalContrib').textContent = fmtINR(totalContrib);
-  document.getElementById('multipleSub').textContent = `${multiple.toFixed(1)}× your contributions`;
+  document.getElementById('multiple').textContent = multiple.toFixed(1) + '×';
+  document.getElementById('multipleSub').textContent = `${fmtINR(totalContrib)} contributed`;
 
+  const labels = Array.from({length: years + 1}, (_, i) => i);
   const tSeries = corpusSeries(state.sip, scen.thoriumNominal, years);
-  const nSeries = corpusSeries(state.sip, BENCHMARKS.nifty.rate, years);
-  const fdSeries = corpusSeries(state.sip, BENCHMARKS.fd.rate, years);
-  const labels = tSeries.map(p => p.year);
+  const nSeries = corpusSeries(state.sip, BENCH.nifty.rate, years);
+  const fdSeries = corpusSeries(state.sip, BENCH.fd.rate, years);
 
   if (growthChart) {
     growthChart.data.labels = labels;
-    growthChart.data.datasets[0].data = tSeries.map(p => p.balance);
-    growthChart.data.datasets[1].data = nSeries.map(p => p.balance);
-    growthChart.data.datasets[2].data = fdSeries.map(p => p.balance);
+    growthChart.data.datasets[0].data = tSeries;
+    growthChart.data.datasets[1].data = nSeries;
+    growthChart.data.datasets[2].data = fdSeries;
     growthChart.update('none');
   }
 
-  const fvNifty = fvSIP(state.sip, BENCHMARKS.nifty.rate, years);
-  const fvGold = fvSIP(state.sip, BENCHMARKS.gold.rate, years);
-  const fvFD = fvSIP(state.sip, BENCHMARKS.fd.rate, years);
+  const fvNifty = fvSIP(state.sip, BENCH.nifty.rate, years);
+  const fvGold = fvSIP(state.sip, BENCH.gold.rate, years);
+  const fvFD = fvSIP(state.sip, BENCH.fd.rate, years);
   const maxFV = Math.max(thoriumFV, fvNifty, fvGold, fvFD);
 
   const rows = [
-    { name: 'Digital Thorium', rate: scen.thoriumNominal, fv: thoriumFV, cls: 'thorium' },
-    { name: 'Nifty 50', rate: BENCHMARKS.nifty.rate, fv: fvNifty, cls: '' },
-    { name: 'Gold', rate: BENCHMARKS.gold.rate, fv: fvGold, cls: '' },
-    { name: 'Bank FD', rate: BENCHMARKS.fd.rate, fv: fvFD, cls: '' }
+    { name: 'Digital Thorium', rate: scen.thoriumNominal, fv: thoriumFV, primary: true },
+    { name: 'Nifty 50',         rate: BENCH.nifty.rate, fv: fvNifty },
+    { name: 'Gold',             rate: BENCH.gold.rate,  fv: fvGold },
+    { name: 'Bank fixed deposit', rate: BENCH.fd.rate,    fv: fvFD }
   ];
   document.getElementById('comparisonRows').innerHTML = rows.map(r => `
-    <div class="comp-row ${r.cls}">
-      <div class="name">${r.name}<span class="rate">${(r.rate*100).toFixed(1)}% nominal</span></div>
-      <div class="comp-bar-track"><div class="comp-bar" style="width:${(r.fv/maxFV*100).toFixed(1)}%"></div></div>
-      <div class="comp-amount">${fmtINR(r.fv)}</div>
-    </div>
+    <tr class="${r.primary ? 'primary' : ''}">
+      <td class="instrument">${r.name}<span class="rate">${(r.rate*100).toFixed(1).replace(/\.0$/,'')}% nominal</span></td>
+      <td class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:${(r.fv/maxFV*100).toFixed(1)}%"></div></div></td>
+      <td class="r fv">${fmtINR(r.fv)}</td>
+    </tr>
   `).join('');
 }
 
 function initGrowthChart() {
   const ctx = document.getElementById('growthChart').getContext('2d');
+  const ink = '#15263D';
+  const inkSoft = '#8B8F9B';
   growthChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: [],
       datasets: [
-        { label: 'Digital Thorium', data: [], borderColor: '#7C2230', backgroundColor: 'rgba(124,34,48,0.08)', fill: true, borderWidth: 2.5, tension: 0.3, pointRadius: 0 },
-        { label: 'Nifty 50', data: [], borderColor: '#5A4F4F', borderWidth: 1.5, borderDash: [4,4], fill: false, tension: 0.3, pointRadius: 0 },
-        { label: 'Bank FD', data: [], borderColor: '#B8860B', borderWidth: 1.5, borderDash: [2,2], fill: false, tension: 0.3, pointRadius: 0 }
+        { label: 'Digital Thorium', data: [], borderColor: ink, backgroundColor: 'rgba(21,38,61,0.06)', fill: true, borderWidth: 2, tension: 0.25, pointRadius: 0 },
+        { label: 'Nifty 50',         data: [], borderColor: inkSoft, borderWidth: 1, borderDash: [4,4], fill: false, tension: 0.25, pointRadius: 0 },
+        { label: 'Bank FD',          data: [], borderColor: inkSoft, borderWidth: 1, borderDash: [1,3], fill: false, tension: 0.25, pointRadius: 0 }
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 12 }, boxWidth: 18, padding: 14 } },
-        tooltip: { callbacks: { label: c => `${c.dataset.label}: ${fmtINR(c.parsed.y)}` } }
+        legend: { position: 'bottom', labels: { font: { family: "'Source Serif 4', Georgia, serif", size: 13 }, boxWidth: 22, padding: 16, color: '#515866' } },
+        tooltip: { backgroundColor: '#15263D', titleFont: { family: "'Source Serif 4', serif" }, bodyFont: { family: "'Source Serif 4', serif" }, padding: 10, callbacks: { label: c => `${c.dataset.label}: ${fmtINR(c.parsed.y)}` } }
       },
       scales: {
-        x: { title: { display: true, text: 'Years from now', font: { family: 'Inter', size: 12 } }, grid: { display: false } },
-        y: { ticks: { callback: v => fmtINR(v), font: { family: 'Inter', size: 11 } }, grid: { color: '#EFE7D7' } }
+        x: { grid: { display: false }, ticks: { font: { family: "'Source Serif 4', serif", size: 11 }, color: '#8B8F9B' }, title: { display: true, text: 'Years', font: { family: "'Source Serif 4', serif", size: 12 }, color: '#515866' } },
+        y: { grid: { color: '#E8E2D2' }, border: { display: false }, ticks: { callback: v => fmtINR(v), font: { family: "'Source Serif 4', serif", size: 11 }, color: '#8B8F9B' } }
       }
     }
   });
@@ -881,18 +628,17 @@ function initGrowthChart() {
 
 function initNavChart() {
   const ctx = document.getElementById('navChart').getContext('2d');
-  // Plausible NAV path: starts at ~20.0, drifts to 23.0 with some volatility
   const months = ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May'];
   const navs = [20.10, 20.45, 20.80, 21.10, 20.90, 21.50, 21.80, 22.10, 22.40, 22.20, 22.70, 23.00];
   navChart = new Chart(ctx, {
     type: 'line',
-    data: { labels: months, datasets: [{ data: navs, borderColor: '#7C2230', backgroundColor: 'rgba(124,34,48,0.1)', fill: true, borderWidth: 2, tension: 0.35, pointRadius: 0, pointHoverRadius: 5 }] },
+    data: { labels: months, datasets: [{ data: navs, borderColor: '#15263D', backgroundColor: 'rgba(21,38,61,0.06)', fill: true, borderWidth: 1.8, tension: 0.35, pointRadius: 0, pointHoverRadius: 4 }] },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => `₹${c.parsed.y.toFixed(2)}` } } },
+      plugins: { legend: { display: false }, tooltip: { backgroundColor: '#15263D', callbacks: { label: c => `₹${c.parsed.y.toFixed(2)}` } } },
       scales: {
-        x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 10 } } },
-        y: { ticks: { callback: v => '₹' + v.toFixed(0), font: { family: 'Inter', size: 10 } }, grid: { color: '#EFE7D7' } }
+        x: { grid: { display: false }, ticks: { font: { family: "'Source Serif 4', serif", size: 10 }, color: '#8B8F9B' } },
+        y: { grid: { color: '#E8E2D2' }, border: { display: false }, ticks: { callback: v => '₹' + v.toFixed(0), font: { family: "'Source Serif 4', serif", size: 10 }, color: '#8B8F9B' } }
       }
     }
   });
