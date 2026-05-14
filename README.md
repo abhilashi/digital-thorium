@@ -10,7 +10,7 @@ By Abhilash Inumella and Anubhav Tiwari · April 2026
 
 ## What this is
 
-A two-part policy report proposing that India create a tradable, fractional, on-chain claim on a unit of thorium-derived electricity. The instrument — Digital Thorium — is denominated in **kilowatt-hour-years (kWhy)**, issued by a federal vehicle sitting between the Department of Atomic Energy and SEBI, and designed to let ordinary Indians own the upside of the country's thorium build-out.
+A four-part policy package proposing that India create a tradable, fractional, on-chain claim on a unit of thorium-derived electricity. The instrument — Digital Thorium — is denominated in **kilowatt-hour-years (kWhy)**, issued by a federal vehicle sitting between the Department of Atomic Energy and SEBI, and designed to let ordinary Indians own the upside of the country's thorium build-out.
 
 The thesis rests on three convergences:
 
@@ -18,12 +18,16 @@ The thesis rests on three convergences:
 2. **Demand.** Global data-centre electricity demand is projected to more than double from 415 TWh (2024) to ~945 TWh (2030), and ~2,000 TWh by 2035 in the lift-off case. Electrons are the new oil; compute is the new refinery.
 3. **Ownership.** In the coming decade more people will want a stake in energy than in land, because owning energy increasingly means owning intelligence.
 
-## Documents
+## The documents
 
-| File | What it covers |
-| --- | --- |
-| [`digital_thorium.pdf`](./digital_thorium.pdf) | Main policy report. Protocol stack, economic analysis, national and security interest, stakeholder analysis, risks, twenty-year simulation, policy architecture. 24 pages. |
-| [`digital_thorium_money_flow.pdf`](./digital_thorium_money_flow.pdf) | Companion diligence memorandum. Traces every rupee through the system: primary issuance, steady-state quarterly distribution, secondary trading, capital recycling flywheel, and the three independent audit chains. |
+Read in any order — each is self-contained. If you only read one, read the term sheet.
+
+| # | File | What it is | Pages |
+| --- | --- | --- | --- |
+| 0 | **[`digital_thorium_term_sheet.pdf`](./digital_thorium_term_sheet.pdf)** | **One-page summary.** Instrument definition, issuance & pricing, economics, deduction stack, variants, tax treatment, liquidity, lockups, risk framework, downside scenarios, audit & governance, programme sizing. The print-it-out cheat sheet. | 1 |
+| 1 | [`digital_thorium.pdf`](./digital_thorium.pdf) | **The argument.** Main policy report. Protocol stack, economic analysis, national and security interest, stakeholder analysis, risks, twenty-year simulation, policy architecture. | 24 |
+| 2 | [`digital_thorium_money_flow.pdf`](./digital_thorium_money_flow.pdf) | **How the rupees move.** Diligence memorandum tracing every rupee end-to-end: primary issuance, steady-state quarterly distribution, secondary trading, capital recycling flywheel, three independent audit chains. | ~11 |
+| 3 | [`digital_thorium_comparison.pdf`](./digital_thorium_comparison.pdf) | **Where it fits in a portfolio.** Feature-by-feature comparison against 14 instruments: G-secs, FDs, SGBs, real estate, REITs, InvITs, power utility equity, Nifty 50, Wheaton-style streamers, Yellow Cake plc, carbon credits, BTC, and more. | ~20 |
 
 ## The instrument in one paragraph
 
@@ -38,15 +42,18 @@ One token = one **kilowatt-hour-year**: a claim on the delivery (or rupee-settle
 | Token | Issuance, custody, transfer, redemption | SEBI, NTFC | Counterparty fraud |
 | Derivative | Futures, options, structured products | SEBI, RBI | Speculative blowout |
 
-## Key numbers from the simulation
+## Headline numbers (central case)
 
-- **Target build-out:** 50 GW thorium-cycle capacity over 20 years (~one-tenth of DAE's long-run potential)
-- **Overnight capital cost:** ~$5.0M per MW → ~$250B total capex (2026 dollars)
+- **Launch price:** ₹20 per kWhy · **Minimum ticket:** ₹500
+- **Target real IRR:** 11.2% · **Nominal IRR:** 14.5% · **Distribution yield (launch):** ~5.0%
+- **Modified duration:** ~12.6 years · **Macaulay:** ~14.0 years · **Asset life:** 60 years
+- **Net pass-through to holders:** 87.5% of gross power sales (statutory cap: 15% deduction)
+- **Build-out target:** 50 GW thorium-cycle capacity over 20 years (~$250B capex)
 - **Steady-state output:** ~359 TWh/year at 82% capacity factor (~21% of India's 2025 generation)
 - **Tokenisable equity:** ~$30B / ~₹2.5 lakh crore over 20 years
-- **Retail reach:** up to ~200 million households at a ₹500 minimum ticket (SIP-scale)
+- **Retail reach:** up to ~200 million households at ₹500 minimum ticket
 - **Capital formation velocity:** ~8× acceleration vs. the state-monopoly baseline of 0.3 GW/year
-- **LCOE compression:** ~25% via a 300 bps reduction in cost of equity
+- **Programme sizing:** 500 MW pilot (2027) → 5 GW (2030) → 20 GW (2035) → 50 GW commissioned (2046)
 
 ## Citation
 
